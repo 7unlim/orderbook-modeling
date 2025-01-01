@@ -1,0 +1,24 @@
+{
+    "files.associations": {
+        "iostream": "cpp",
+        "stdexcept": "cpp",
+        "ostream": "cpp",
+        "map": "cpp",
+        "ios": "cpp",
+        "vector": "cpp",
+        "iomanip": "cpp",
+        "__hash_table": "cpp",
+        "__node_handle": "cpp",
+        "__threading_support": "cpp",
+        "iterator": "cpp",
+        "initializer_list": "cpp",
+        "iosfwd": "cpp",
+        "limits": "cpp",
+        "new": "cpp",
+        "optional": "cpp",
+        "ratio": "cpp",
+        "tuple": "cpp",
+        "typeinfo": "cpp",
+        "unordered_map": "cpp"
+    }
+}
