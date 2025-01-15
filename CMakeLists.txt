@@ -15,6 +15,7 @@ include_directories(includes)
 add_executable(main
     src/main.cpp
     src/OrderBook.cpp
+    src/OptionsPricing.cpp
 )
 
 # Specify target link libraries if needed (none specified here)

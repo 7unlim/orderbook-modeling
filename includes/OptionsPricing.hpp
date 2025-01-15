@@ -3,8 +3,8 @@
 
 class OptionsPricing {
     public:
-        void blackScholes();
-        void binomial();
+        void blackScholes(double S, double K, double T, double r, double sigma);
+        void binomial(double S, double K, double T, double r, double sigma, int steps);
 
     private:
 

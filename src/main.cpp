@@ -6,25 +6,26 @@
 using namespace std;
 
 int main() {
-
+    cout << " " << endl;
     cout << "░█████╗░░░░░░░░░░░░░░░  ░█████╗░██████╗░██████╗░███████╗██████╗░██████╗░░█████╗░░█████╗░██╗░░██╗" << endl;
     cout << "██╔══██╗░░██╗░░░░██╗░░  ██╔══██╗██╔══██╗██╔══██╗██╔════╝██╔══██╗██╔══██╗██╔══██╗██╔══██╗██║░██╔╝" << endl;
     cout << "██║░░╚═╝██████╗██████╗  ██║░░██║██████╔╝██║░░██║█████╗░░██████╔╝██████╦╝██║░░██║██║░░██║█████═╝░" << endl;
     cout << "██║░░██╗╚═██╔═╝╚═██╔═╝  ██║░░██║██╔══██╗██║░░██║██╔══╝░░██╔══██╗██╔══██╗██║░░██║██║░░██║██╔═██╗░" << endl;
     cout << "╚█████╔╝░░╚═╝░░░░╚═╝░░  ╚█████╔╝██║░░██║██████╔╝███████╗██║░░██║██████╦╝╚█████╔╝╚█████╔╝██║░╚██╗" << endl;
     cout << "░╚════╝░░░░░░░░░░░░░░░  ░╚════╝░╚═╝░░╚═╝╚═════╝░╚══════╝╚═╝░░╚═╝╚═════╝░░╚════╝░░╚════╝░╚═╝░░╚═╝" << endl;
+    cout << " " << endl;
 
     OrderBook orderbook(500);
 
-    for (auto n : orderbook.getBids()) {
-        cout << n.first << endl;
-    }
+    // for (auto n : orderbook.getBids()) {
+    //     cout << n.first << endl;
+    // }
 
-    cout << " " << endl;
+    // cout << " " << endl;
 
-    for (auto n : orderbook.getAsks()) {
-        cout << n.first << endl;
-    }
+    // for (auto n : orderbook.getAsks()) {
+    //     cout << n.first << endl;
+    // }
 
     while (true) {
         orderbook.printOrderBook(5);
@@ -142,9 +143,37 @@ int main() {
                 cin >> options_type;
             }
 
+            auto bids = orderbook.getBids();
+            auto asks = orderbook.getAsks();
+            
+            double S = 0;
+            if (!bids.empty() && !asks.empty()) {
+                S = (bids.rbegin()->first + asks.begin()->first) / 2.0;
+            } else {
+                throw runtime_error("Order book is empty, cannot calculate mid price.");
+            }
+
+            double K; // User-defined strike price
+            double T; // Time to expiration in years
+            double r = 0.03; // Risk-free rate (e.g., 3%)
+            double sigma = 0.2; // Assume 20% volatility for simplicity (could be calculated)
+
+            cout << "Enter Strike Price (K): ";
+            cin >> K;
+            cout << "Enter Time to Expiration (in days): ";
+            int daysToExpiry;
+            cin >> daysToExpiry;
+            T = static_cast<double>(daysToExpiry) / 365.0;
+
             OptionsPricing options;
-            if (options_type == 1) {
+            if (options_type == '1') {
+                options.blackScholes(S, K, T, r, sigma);
                 // TODO
+            } else {
+                int steps;
+                cout << "Enter number of steps for Binomial Model: ";
+                cin >> steps;
+                options.binomial(S, K, T, r, sigma, steps);
             }
         }
         // cout << "\n==============================" << endl;
